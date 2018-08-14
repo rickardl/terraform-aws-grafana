@@ -34,8 +34,8 @@ jobs:
     - stage: test
       language: bash
       env:
-        -  TERRAFORM_COMMAND=fmt -check=true
-        -  TERRAFORM_COMMAND=validate -check-variables=false 
+        -  'TERRAFORM_COMMAND=fmt -check=true'
+        -  'TERRAFORM_COMMAND=validate -check-variables=false'
       before_install: true
       install: true
       before_script: true

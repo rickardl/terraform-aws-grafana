@@ -19,13 +19,8 @@ env:
     - 'DOCKER_BUILD_NUMBER=$TRAVIS_REPO_SLUG:$BRANCH_PARSE-$TRAVIS_BUILD_NUMBER'
     - 'DOCKER_BUILD_LATEST=$TRAVIS_REPO_SLUG:$BRANCH_PARSE-latest'
     - 'DOCKER_REPOS_LATEST=$TRAVIS_REPO_SLUG:latest'
-matrix:
-  fast_finish: true
-  include:
-    - name: terraform fmt
-      env: TERRAFORM_COMMAND=fmt
-    - name: terraform validate
-      env: TERRAFORM_COMMAND=validate
+  
+
 
 cache:
   directories:
@@ -39,6 +34,12 @@ jobs:
   include:
     - stage: test
       language: bash
+      matrix:
+        include:
+          - name: "terraform format"
+            env: TERRAFORM_COMMAND=fmt
+          - name: "terraform validate"
+            env: TERRAFORM_COMMAND=validate
       before_install: true
       install: true
       before_script: true

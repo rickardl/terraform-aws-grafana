@@ -34,7 +34,6 @@ jobs:
             env: TERRAFORM_COMMAND=fmt
           - name: terraform validate
             env: TERRAFORM_COMMAND=validate
-    - stage: test
       before_install: true
       install: true
       before_script: true

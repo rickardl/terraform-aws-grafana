@@ -1,6 +1,6 @@
 ## Grafana
 
-[![Build Status](https://travis-ci.com/telia-oss/terraform-aws-grafana.svg?branch=master)](https://travis-ci.com/telia-oss/terraform-aws-grafana)
+[![Build Status](https://travis-ci.com/rickardl/terraform-aws-grafana.svg?branch=master)](https://travis-ci.com/rickardl/terraform-aws-grafana)
 ![](https://img.shields.io/maintenance/yes/2018.svg) 
 
 Terraform module which creates a Grafana deployment in a Fargate ECS cluster on AWS.

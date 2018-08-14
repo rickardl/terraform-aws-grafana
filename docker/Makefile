@@ -1,13 +1,12 @@
 .PHONY: default all clean test pre-build docker-build post-build build release patch-release minor-release major-release tag check-status check-release showver push run pre-push do-push post-push
 
-
 default: test
 
 # Include environment variables
 include .makerc
 
 # Image and binary can be overidden with env vars.
-DOCKER_IMAGE ?= teliaoss/grafana-aws-env
+DOCKER_IMAGE ?=  $(IMAGE)
 
 # Get the latest commit.
 GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
@@ -80,7 +79,7 @@ push: pre-push do-push post-push  ## Push image to Docker hub
 run: build pre-run docker-run post-run ## Run container on port configured in '.makerc'
 
 pre-run:
-	$(info Starting container  $(DOCKER_IMAGE):$(DOCKER_TAG) on $(PORT))
+	$(info Starting container $(DOCKER_IMAGE):$(DOCKER_TAG) on $(PORT))
 
 post-run:
 	

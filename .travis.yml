@@ -1,18 +1,59 @@
-dist: trusty
+$schema: 'http://json.schemastore.org/travis'
+
+language: bash
 sudo: false
+dist: trusty
+stages:
+  - lint
+  - test
+services:
+  - docker
+env:
+  global:
+    - 'TERRAFORM_VERSION=0.10.7'
+    - 'TERRAFORM_DOCKER_IMAGE=hashicorp/terraform:light'
+    - 'TFLINT_DOCKER_IMAGE=hadolint/hadolint'
+    - 'YAMLLINT_VERSION=1.0.3'
+    - 'BRANCH_PARSE=${TRAVIS_BRANCH/\//-}'
+    - 'DOCKER_BUILD_HASHS=$TRAVIS_REPO_SLUG:$BRANCH_PARSE-$TRAVIS_COMMIT'
+    - 'DOCKER_BUILD_NUMBER=$TRAVIS_REPO_SLUG:$BRANCH_PARSE-$TRAVIS_BUILD_NUMBER'
+    - 'DOCKER_BUILD_LATEST=$TRAVIS_REPO_SLUG:$BRANCH_PARSE-latest'
+    - 'DOCKER_REPOS_LATEST=$TRAVIS_REPO_SLUG:latest'
 
 before_install:
-  - curl -fSL "https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip" -o terraform.zip
-  - sudo unzip terraform.zip -d /opt/terraform
-  - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-  - rm -f terraform.zip
-  - curl -fSL https://github.com/wata727/tflint/releases/download/v0.7.0/tflint_linux_amd64.zip -o tflint.zip
-  - sudo unzip tflint.zip -d /opt/tflint
-  - sudo ln -s /opt/tflint/tflint /usr/bin/tflint
-  - rm -f tflint.zip
-
+  - docker --version
+  - docker pull $TERRAFORM_DOCKER_IMAGE
+  - docker pull $TFLINT_DOCKER_IMAGE
+jobs:
+  include:
+    - stage: test
+      matrix:
+        fast_finish: true
+        include:
+          - name: terraform fmt
+            env: TERRAFORM_COMMAND=fmt
+          - name: terraform validate
+            env: TERRAFORM_COMMAND=validate
+    - stage: test
+      before_install: true
+      install: true
+      before_script: true
+      after_script: true
+      script:
+        - docker run -i -t -v $(pwd):/ -w / hashicorp/terraform:light $TERRAFORM_COMMAND
+    - stage: Build container
+      before_install: true
+      install: true
+      before_script: true
+      after_script: true
+      script:
+        - make -C ./docker docker_publish
+    - stage: Push container
+      before_install: true
+      install: true
+      before_script: true
+      after_script: true
+      script:
+        - make -C ./docker docker_publish
 notifications:
   email: false
-
-script:
-  - make

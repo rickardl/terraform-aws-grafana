@@ -45,7 +45,7 @@ jobs:
     - stage: lint
       language: bash
       env:
-        -  TERRAFORM_COMMAND="validate -check-variables=true"
+        -  TERRAFORM_COMMAND="validate -check-variables=false"
       before_install: true
       install: true
       before_script: true
@@ -66,7 +66,7 @@ jobs:
       script:
         - docker run -i -t -v $(pwd):/terraform -w /terraform/examples/default hashicorp/terraform:light init
         - docker run -i -t -v $(pwd):/terraform -w /terraform/examples/default hashicorp/terraform:light TERRAFORM_COMMAND_FMT
-        - docker run -i -t -v $(pwd):/terraform -w /terraform/examples/default hashicorp/terraform:light TERRAFORM_COMMAND_VALIDATEgoo
+        - docker run -i -t -v $(pwd):/terraform -w /terraform/examples/default hashicorp/terraform:light TERRAFORM_COMMAND_VALIDATE
         - docker run -i -t -v $(pwd):/terraform -w /terraform/examples/default wata727/tflint --ignore-module="telia-oss/ecs-fargate/aws"
     - stage: Build container
       before_install: true

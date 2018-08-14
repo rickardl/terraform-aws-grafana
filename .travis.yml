@@ -29,7 +29,7 @@ before_install:
   - docker pull $TFLINT_DOCKER_IMAGE
 jobs:
   include:
-    - stage: lint
+    - stage: lint and format
       language: bash
       env:
         - TERRAFORM_COMMAND_FTM="fmt -check=true"
@@ -43,8 +43,8 @@ jobs:
         - docker run -i -t -v $(pwd):/terraform -w /terraform hashicorp/terraform:light $TERRAFORM_COMMAND_FTM
         - docker run -i -t -v $(pwd):/terraform -w /terraform hashicorp/terraform:light $TERRAFORM_COMMAND_VALIDATE
         - docker run -i -t -v $(pwd):/terraform -w /terraform wata727/tflint --ignore-module="telia-oss/ecs-fargate/aws"
-        
-    - stage: integration tests
+
+    - stage: lint and format
       language: bash
       env:
         -  TERRAFORM_COMMAND_FMT="fmt -check=true"

@@ -1,11 +1,11 @@
-# grafana-aws-env
+# rickardl/grafana
 
-![Badge for Container Image](https://images.microbadger.com/badges/image/teliaoss/grafana-aws-env.svg)
-[![Docker Pulls](https://img.shields.io/docker/pulls/teliaoss/grafana-aws-env.svg)](https://hub.docker.com/r/teliaoss/grafana-aws-env/)
+![Badge for Container Image](https://images.microbadger.com/badges/image/rickardl/grafana.svg)
+[![Docker Pulls](https://img.shields.io/docker/pulls/rickardl/grafana.svg)](https://hub.docker.com/r/rickardl/grafana/)
 
 Image available from:
 
-* [**Docker Hub**](https://hub.docker.com/r/teliaoss/grafana-aws-env.svg)
+* [**Docker Hub**](https://hub.docker.com/r/ricakrdl/grafana.svg)
 
 ## Background
 

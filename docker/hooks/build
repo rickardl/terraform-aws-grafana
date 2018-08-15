@@ -11,6 +11,6 @@ echo "------ HOOK START - BUILD -------"
 
 echo "Build hook running"
 
-make help
+make build
 
 echo "------ HOOK END - BUILD -------"

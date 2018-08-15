@@ -7,6 +7,7 @@ ARG VCS_URL
 ARG VCS_REF
 ARG AWS_ENV_VERSION="v0.3.0"
 ARG AWS_ENV_URL="https://github.com/telia-oss/aws-env/releases/download/$AWS_ENV_VERSION/aws-env-linux-amd64"
+ARG IMAGE_NAME
 
 # Environemnt variables
 ENV AWS_ENV_VERSION=${AWS_ENV_VERSION}
@@ -15,7 +16,7 @@ ENV AWS_ENV_URL=${AWS_ENV_URL}
 # Metadata
 LABEL maintainer="oss@telia.io" \
       org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name="grafana-aws-env" \
+      org.label-schema.name=${IMAGE_NAME}} \
       org.label-schema.description="This image extends the standard grafana docker image with our tool for securely handling secrets in environment variables on AWS. Supports KMS, SSM Parameter store and secrets manager. Inspired by ssm-env." \
       org.label-schema.url="https://telia-oss-github.io" \
       org.label-schema.vcs-url=$VCS_URL \

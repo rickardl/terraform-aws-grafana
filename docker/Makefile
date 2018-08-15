@@ -122,6 +122,7 @@ docker-build:
 	--build-arg VCS_URL='git config --get remote.origin.url' \
 	--build-arg VCS_REF=$(GIT_COMMIT) \
 	--build-arg AWS_ENV_VERSION=$(AWS_ENV_LATEST_RELEASE) \
+	--build-arg IMAGE_NAME=$(DOCKER_IMAGE) \
 	-t $(DOCKER_IMAGE):$(DOCKER_TAG) .
 
 .PHONY: docker_push

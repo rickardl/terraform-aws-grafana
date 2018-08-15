@@ -1,2 +1,2 @@
-IMAGE=rickardl/grafana-aws-env
+IMAGE=rickardl/grafana
 PORT=3000

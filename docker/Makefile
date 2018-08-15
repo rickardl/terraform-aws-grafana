@@ -1,5 +1,5 @@
-.PHONY: default all clean test pre-build docker-build post-build build release patch-release minor-release major-release tag check-status check-release showver push run pre-push do-push post-push
 
+.PHONY: default
 default: test
 
 # Include environment variables
@@ -60,46 +60,60 @@ AWS_ENV_LATEST_RELEASE := $(strip $(shell curl --silent "https://api.github.com/
 # This will output the help for each task
 # thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
-
 help: ## This help.
 	$
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
 
+.PHONY: clean
 clean: ## Clean the project
 	$[info There's nothing to clean ...)
 
+.PHONY: build
 build: pre-build docker-build post-build
 
+.PHONY: release
 release: build push ## Make a release
 
+.PHONY: push
 push: pre-push do-push post-push  ## Push image to Docker hub
 
+.PHONY: run
 run: build pre-run docker-run post-run ## Run container on port configured in '.makerc'
 
+.PHONY: pre-run
 pre-run:
 	$(info Starting container $(DOCKER_IMAGE):$(DOCKER_TAG) on $(PORT))
 
+.PHONY: post-run
 post-run:
-	
+
+.PHONY: post-run
 pre-build:
     $(info Building: $(DOCKER_IMAGE):$(DOCKER_TAG) with $(CODE_VERSION):$(GIT_COMMIT))
 
+.PHONY: post-build
 post-build:
+	$(info test)
 
+.PHONY: pre-build
 pre-push:
 	$(info Publishing $(DOCKER_IMAGE):$(DOCKER_TAG) as $(DOCKER_IMAGE):latest ...)
 
+.PHONY: post-push
 post-push:
 
+.PHONY: test
 test: ## Test
 	$(info Performs test)
 	docker run --rm -i hadolint/hadolint < Dockerfile
 
+.PHONY: docker-run
 docker-run:
 	docker run -d --rm -p=$(PORT):$(PORT) $(DOCKER_IMAGE):$(DOCKER_TAG)
 
+.PHONY: docker-build
 docker-build:
 	# Build Docker image
 	docker build \
@@ -110,6 +124,7 @@ docker-build:
 	--build-arg AWS_ENV_VERSION=$(AWS_ENV_LATEST_RELEASE) \
 	-t $(DOCKER_IMAGE):$(DOCKER_TAG) .
 
+.PHONY: docker_push
 docker_push:
 	# Tag image as latest
 	docker tag $(DOCKER_IMAGE):$(DOCKER_TAG) $(DOCKER_IMAGE):latest

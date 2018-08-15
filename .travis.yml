@@ -58,13 +58,14 @@ jobs:
         - docker run -i -t -v $(pwd):/terraform -w /terraform/examples/default hashicorp/terraform:light $TERRAFORM_COMMAND_FMT
         - docker run -i -t -v $(pwd):/terraform -w /terraform/examples/default hashicorp/terraform:light $TERRAFORM_COMMAND_VALIDATE
         - docker run -i -t -v $(pwd):/terraform -w /terraform/examples/default wata727/tflint --ignore-module="telia-oss/ecs-fargate/aws,telia-oss/loadbalancer/aws,telia-oss/rds-instance/aws"
-    - stage: Build container
+    - stage: Build and Test
       before_install: true
       install: true
       before_script: true
       after_script: true
       script:
-        - echo "LOL"
+        - make -C ./docker build
+
     - stage: Push container
       before_install: true
       install: true

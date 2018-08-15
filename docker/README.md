@@ -30,7 +30,7 @@ docker pull teliaoss/grafana-aws-env:latest
 
 See guides and instructions for the grafana container at [grafana/grafana](https://github.com/grafana/grafana)
 
-For convenience we provide a [docker-compose.yml](docker/docker-compose.yml) file
+For convenience we provide a [docker-compose.yml](docker/docker-compose-test.yml) file
 
 ```shell
 mkdir data

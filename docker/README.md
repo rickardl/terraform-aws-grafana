@@ -1,6 +1,7 @@
 # rickardl/grafana
 
-![Badge for Container Image](https://images.microbadger.com/badges/image/rickardl/grafana.svg)
+[![](https://images.microbadger.com/badges/image/rickardl/grafana.svg)](https://microbadger.com/images/rickardl/grafana "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/rickardl/grafana.svg)](https://microbadger.com/images/rickardl/grafana "Get your own version badge on microbadger.com")
 [![Docker Pulls](https://img.shields.io/docker/pulls/rickardl/grafana.svg)](https://hub.docker.com/r/rickardl/grafana/)
 
 Image available from:

@@ -11,8 +11,14 @@ DOCKER_IMAGE ?=  $(IMAGE)
 # Get the latest commit.
 GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
 
+# Get the project url
+GIT_VCS_URL = $(strip $(shell git config --get remote.origin.url))
+
+
 # Get the version number from the code
 CODE_VERSION = $(strip $(shell cat VERSION))
+
+'git config --get remote.origin.url
 
 # Find out if the working directory is clean
 GIT_NOT_CLEAN_CHECK = $(shell git status --porcelain)
@@ -119,7 +125,7 @@ docker-build:
 	docker build \
 	--build-arg BUILD_DATE='date -u +"%Y-%m-%dT%H:%M:%SZ"' \
 	--build-arg VERSION=$(CODE_VERSION) \
-	--build-arg VCS_URL='git config --get remote.origin.url' \
+	--build-arg VCS_URL=$(GIT_VCS_URL) \
 	--build-arg VCS_REF=$(GIT_COMMIT) \
 	--build-arg AWS_ENV_VERSION=$(AWS_ENV_LATEST_RELEASE) \
 	--build-arg IMAGE_NAME=$(DOCKER_IMAGE) \

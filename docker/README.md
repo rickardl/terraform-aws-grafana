@@ -33,6 +33,10 @@ See guides and instructions for the grafana container at [grafana/grafana](https
 For convenience we provide a [docker-compose.yml](docker/docker-compose-test.yml) file
 
 ```shell
+docker-compose -f docker-compose.test.yml -p ci up -d
+```
+
+```shell
 mkdir data
 chmod 777 data
 docker-compose up -d

@@ -19,10 +19,10 @@ LABEL maintainer="oss@telia.io" \
       org.label-schema.name=${IMAGE_NAME}} \
       org.label-schema.description="This image extends the standard grafana docker image with our tool for securely handling secrets in environment variables on AWS. Supports KMS, SSM Parameter store and secrets manager. Inspired by ssm-env." \
       org.label-schema.url="https://telia-oss-github.io" \
-      org.label-schema.vcs-url=$VCS_URL \
-      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url=${VCS_URL} \
+      org.label-schema.vcs-ref=${VCS_REF} \
       org.label-schema.vendor="Telia Company" \
-      org.label-schema.version=$VERSION \
+      org.label-schema.version=${VERSION} \
       org.label-schema.schema-version="1.0"
 
 USER root

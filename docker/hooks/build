@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "------ HOOK START - BUILD -------"
+#SOURCE_BRANCH: the name of the branch or the tag that is currently being tested.
+#SOURCE_COMMIT: the SHA1 hash of the commit being tested.
+#COMMIT_MSG: the message from the commit being tested and built.
+#DOCKER_REPO: the name of the Docker repository being built.
+#DOCKERFILE_PATH: the dockerfile currently being built.
+#CACHE_TAG: the Docker repository tag being built.
+#IMAGE_NAME: the name and tag of the Docker repository being built. (This variable is a combination of DOCKER_REPO:CACHE_TAG.)
+
+echo "Build hook running"
+
+docker build \
+--build-arg BUILD_DATE='date -u +"%Y-%m-%dT%H:%M:%SZ"' \
+--build-arg VERSION=$(CODE_VERSION) \
+--build-arg VCS_URL='git config --get remote.origin.url' \
+--build-arg VCS_REF=$(GIT_COMMIT) \
+--build-arg AWS_ENV_VERSION=$(AWS_ENV_LATEST_RELEASE) \
+--build-arg IMAGE_NAME=$(IMAGE_NAME) \
+-t $(DOCKER_IMAGE):$(DOCKER_TAG) .
+
+echo "------ HOOK END - BUILD -------"

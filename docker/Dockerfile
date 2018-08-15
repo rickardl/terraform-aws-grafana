@@ -15,7 +15,7 @@ ENV AWS_ENV_URL=${AWS_ENV_URL}
 
 # Metadata
 LABEL maintainer="oss@telia.io" \
-      org.label-schema.build-date=$BUILD_DATE} \
+      org.label-schema.build-date=${BUILD_DATE} \
       org.label-schema.name=${IMAGE_NAME} \
       org.label-schema.description="This image extends the standard grafana docker image with our tool for securely handling secrets in environment variables on AWS. Supports KMS, SSM Parameter store and secrets manager. Inspired by ssm-env." \
       org.label-schema.url="https://telia-oss-github.io" \
@@ -28,6 +28,7 @@ LABEL maintainer="oss@telia.io" \
 USER root
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# hadolint ignore=DL3008,DL3015
 RUN apt-get update && apt-get install -qq -y \
       tzdata \
       openssl \
